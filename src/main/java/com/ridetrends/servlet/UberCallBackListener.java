@@ -36,6 +36,7 @@ public class UberCallBackListener extends HttpServlet{
 			final String CLIENT_ID = System.getenv("UBER_CLIENT_ID");
 			final String CLIENT_SECRET = System.getenv("UBER_CLIENT_SECRET");
 			final String HISTORY_ENDPOINT = "https://api.uber.com/v1.2/history";
+			final String PROFILE_ENDPOINT = "https://api.uber.com/v1.2/me";
 			final String ACCEPT_LANGUAGE = "en_US";
 			final String CONTENT_TYPE = "application/json";
 			//Generate Post Request
