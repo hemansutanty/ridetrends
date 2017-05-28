@@ -1,8 +1,10 @@
 package com.ridetrends.bean;
 
+import java.util.List;
+
 public class UberHistoryBean {
 	private String count;
-	private UberHistory history;
+	private List<UberHistory> history;
 	private String limit;
 	private String offset;
 	public String getCount() {
@@ -11,10 +13,11 @@ public class UberHistoryBean {
 	public void setCount(String count) {
 		this.count = count;
 	}
-	public UberHistory getHistory() {
+	
+	public List<UberHistory> getHistory() {
 		return history;
 	}
-	public void setHistory(UberHistory history) {
+	public void setHistory(List<UberHistory> history) {
 		this.history = history;
 	}
 	public String getLimit() {

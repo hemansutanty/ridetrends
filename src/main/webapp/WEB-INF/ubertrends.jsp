@@ -16,25 +16,20 @@
 </head>
 <body>
 	<jsp:useBean id="uberprofile" class="com.ridetrends.bean.UberProfileBean" scope="session"></jsp:useBean>
+	<jsp:useBean id="uberStats" class="com.ridetrends.bean.UberStats" scope="session"></jsp:useBean>
 	<%@ page isELIgnored="false"%>
 	<div class="container">
 		<!-- Page Content goes here -->
+		<jsp:include page="uberprofilecard.jsp"></jsp:include>
 		<div class="row">
-			<div class="col s5 offset-s3">
-				<div class="card-panel grey lighten-5 z-depth-1">
-					<div class="row valign-wrapper">
-						<div class="col s3">
-							<img src="${uberprofile.picture}" alt=""
-								class="circle responsive-img">
-							<!-- notice the "circle" class -->
-						</div>
-						<div class="col s10">
-							Name:&nbsp;<span class="black-text">${uberprofile.first_name}&nbsp;${uberprofile.last_name}</span><br>
-							Email:&nbsp;<span class="black-text">${uberprofile.email}</span><br>
-							Promo:&nbsp;<span class="black-text">${uberprofile.promo_code}</span><br>
-						</div>
-					</div>
-				</div>
+			<div class="col s6">
+				<h6>Rides this month&nbsp;:&nbsp;<b>${uberStats.presentMonthTotalRides}</b></h6>
+				<h6>Rides last month&nbsp;:&nbsp;<b>${uberStats.lastMonthTotalRides}</b></h6>
+			</div>
+			
+			<div class="col s6">
+				<h6>Miles covered this month&nbsp;:&nbsp;<b>${uberStats.totalMilesCoveredThisMonth}</b></h6>
+				<h6>Miles covered last month&nbsp;:&nbsp;<b>${uberStats.totalMilesCoveredLastMonth}</b></h6>
 			</div>
 		</div>
 	</div>
