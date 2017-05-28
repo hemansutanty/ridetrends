@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>The World's Most Interesting Infographic</title>
+<title>Ride Trends</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>

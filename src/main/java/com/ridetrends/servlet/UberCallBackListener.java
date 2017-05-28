@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpResponse;
@@ -21,6 +22,9 @@ import org.apache.http.impl.client.HttpClients;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ridetrends.bean.UberAccessTokenBean;
+import com.ridetrends.bean.UberProfileBean;
+import com.ridetrends.service.UberService;
+import com.ridetrends.service.UberServiceImpl;
 
 public class UberCallBackListener extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -36,7 +40,6 @@ public class UberCallBackListener extends HttpServlet{
 			final String CLIENT_ID = System.getenv("UBER_CLIENT_ID");
 			final String CLIENT_SECRET = System.getenv("UBER_CLIENT_SECRET");
 			final String HISTORY_ENDPOINT = "https://api.uber.com/v1.2/history";
-			final String PROFILE_ENDPOINT = "https://api.uber.com/v1.2/me";
 			final String ACCEPT_LANGUAGE = "en_US";
 			final String CONTENT_TYPE = "application/json";
 			//Generate Post Request
@@ -75,10 +78,13 @@ public class UberCallBackListener extends HttpServlet{
 			reader = new InputStreamReader(httpResponse.getEntity().getContent());
 			bufferedReader = new BufferedReader(reader);
 			line = bufferedReader.readLine();
-			
-			
 			httpClient.close();
 			
+			UberService uberService = new UberServiceImpl();
+			UberProfileBean uberProfileBean = uberService.getUberProfile(accessToken);
+			HttpSession session = request.getSession();
+			session.setAttribute("uberprofile", uberProfileBean);
+			getServletContext().getRequestDispatcher("/WEB-INF/ubertrends.jsp").forward(request, response);
 		}
 		else{
 			
