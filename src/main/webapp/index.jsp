@@ -4,6 +4,14 @@
 <html>
 <head>
 <title>Ride Trends</title>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
@@ -32,7 +40,8 @@
 </head>
 
 <body>
-	<button id="goButton" type="button">Go!</button>
+	<a class="waves-effect waves-light btn" id="goButton">Login with
+		Uber&nbsp; <i class="fa fa-car" aria-hidden="true"></i></a>
 	<div id="results"></div>
 </body>
 </html>

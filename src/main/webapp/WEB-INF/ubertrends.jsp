@@ -18,31 +18,16 @@
 <body>
 	<jsp:useBean id="uberprofile"
 		class="com.ridetrends.bean.UberProfileBean" scope="session"></jsp:useBean>
-	<jsp:useBean id="uberStats" class="com.ridetrends.bean.UberStats"
+	<jsp:useBean id="uberStats" class="com.ridetrends.bean.UberRecentBriefStats"
 		scope="session"></jsp:useBean>
+	<jsp:useBean id="monthwisestats"
+		class="com.ridetrends.bean.UberMonthlyStats" scope="session"></jsp:useBean>
 	<%@ page isELIgnored="false"%>
 	<div class="container">
 		<!-- Page Content goes here -->
 		<jsp:include page="uberprofilecard.jsp"></jsp:include>
-		<div class="row">
-			<div class="col s6">
-				<h6>
-					Rides this month&nbsp;:&nbsp;<b>${uberStats.presentMonthTotalRides}</b>
-				</h6>
-				<h6>
-					Rides last month&nbsp;:&nbsp;<b>${uberStats.lastMonthTotalRides}</b>
-				</h6>
-			</div>
-
-			<div class="col s6">
-				<h6>
-					Miles covered this month&nbsp;:&nbsp;<b>${uberStats.totalMilesCoveredThisMonth}</b>
-				</h6>
-				<h6>
-					Miles covered last month&nbsp;:&nbsp;<b>${uberStats.totalMilesCoveredLastMonth}</b>
-				</h6>
-			</div>
-		</div>
+		<jsp:include page="recentuberbriefstats.jsp"></jsp:include>
+		<jsp:include page="monthwisestats.jsp"></jsp:include>
 	</div>
 </body>
 

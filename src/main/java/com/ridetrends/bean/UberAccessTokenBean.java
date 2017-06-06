@@ -1,5 +1,8 @@
 package com.ridetrends.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 public class UberAccessTokenBean {
 	private String last_authenticated;
 	private String access_token;

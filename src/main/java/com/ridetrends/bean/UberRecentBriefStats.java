@@ -1,6 +1,6 @@
 package com.ridetrends.bean;
 
-public class UberStats {
+public class UberRecentBriefStats {
 	private int presentMonthTotalRides;
 	private int lastMonthTotalRides;
 	private Double totalDistanceCoveredinMilesinLastMonth;

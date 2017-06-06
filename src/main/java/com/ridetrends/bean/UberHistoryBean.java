@@ -2,6 +2,9 @@ package com.ridetrends.bean;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 public class UberHistoryBean {
 	private String count;
 	private List<UberHistory> history;

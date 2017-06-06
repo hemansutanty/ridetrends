@@ -1,5 +1,8 @@
 package com.ridetrends.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"guest"})
 public class UberHistory {
 	private String status;
 	private String distance;
