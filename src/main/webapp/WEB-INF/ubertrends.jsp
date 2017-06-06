@@ -12,24 +12,35 @@
 <!-- Compiled and minified JavaScript -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
 <title>Your uber trends</title>
 </head>
 <body>
-	<jsp:useBean id="uberprofile" class="com.ridetrends.bean.UberProfileBean" scope="session"></jsp:useBean>
-	<jsp:useBean id="uberStats" class="com.ridetrends.bean.UberStats" scope="session"></jsp:useBean>
+	<jsp:useBean id="uberprofile"
+		class="com.ridetrends.bean.UberProfileBean" scope="session"></jsp:useBean>
+	<jsp:useBean id="uberStats" class="com.ridetrends.bean.UberStats"
+		scope="session"></jsp:useBean>
 	<%@ page isELIgnored="false"%>
 	<div class="container">
 		<!-- Page Content goes here -->
 		<jsp:include page="uberprofilecard.jsp"></jsp:include>
 		<div class="row">
 			<div class="col s6">
-				<h6>Rides this month&nbsp;:&nbsp;<b>${uberStats.presentMonthTotalRides}</b></h6>
-				<h6>Rides last month&nbsp;:&nbsp;<b>${uberStats.lastMonthTotalRides}</b></h6>
+				<h6>
+					Rides this month&nbsp;:&nbsp;<b>${uberStats.presentMonthTotalRides}</b>
+				</h6>
+				<h6>
+					Rides last month&nbsp;:&nbsp;<b>${uberStats.lastMonthTotalRides}</b>
+				</h6>
 			</div>
-			
+
 			<div class="col s6">
-				<h6>Miles covered this month&nbsp;:&nbsp;<b>${uberStats.totalMilesCoveredThisMonth}</b></h6>
-				<h6>Miles covered last month&nbsp;:&nbsp;<b>${uberStats.totalMilesCoveredLastMonth}</b></h6>
+				<h6>
+					Miles covered this month&nbsp;:&nbsp;<b>${uberStats.totalMilesCoveredThisMonth}</b>
+				</h6>
+				<h6>
+					Miles covered last month&nbsp;:&nbsp;<b>${uberStats.totalMilesCoveredLastMonth}</b>
+				</h6>
 			</div>
 		</div>
 	</div>

@@ -13,6 +13,10 @@ This application shows ride trends of an uber user.
 UBER_CLIENT_ID=<your_uber_client_id>
 UBER_CLIENT_SECRET=<your_uber_client_secret>
 ```
- 
-4. Run in local server(Apache tomcat)
-5. Visit http://localhost:8080/ridetrends/ in your browser.
+4. Add callback url/redirect url as
+
+```
+http://localhost:8080/ridetrends/callback
+```
+5. Run in local server(Apache tomcat)
+6. Visit http://localhost:8080/ridetrends/ in your browser.

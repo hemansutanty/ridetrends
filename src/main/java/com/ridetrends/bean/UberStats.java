@@ -8,7 +8,6 @@ public class UberStats {
 	private Double totalMilesCoveredThisMonth;
 	private Double totalMilesCoveredLastMonth;
 
-	
 	public Double getTotalMilesCoveredThisMonth() {
 		return totalMilesCoveredThisMonth;
 	}

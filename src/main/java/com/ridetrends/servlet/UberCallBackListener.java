@@ -25,53 +25,56 @@ import com.ridetrends.bean.UberProfileBean;
 import com.ridetrends.bean.UberStats;
 import com.ridetrends.service.UberService;
 import com.ridetrends.service.UberServiceImpl;
+import com.ridetrends.utilities.CalculateUberStats;
 
-public class UberCallBackListener extends HttpServlet{
+public class UberCallBackListener extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
-		
-		//Detect the presence of an Authorization Code
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// Detect the presence of an Authorization Code
 		String authorizationCode = request.getParameter("code");
-		if(authorizationCode != null && authorizationCode.length()>0){
+		if (authorizationCode != null && authorizationCode.length() > 0) {
 			final String TOKEN_ENDPOINT = "https://login.uber.com/oauth/v2/token";
 			final String GRANT_TYPE = "authorization_code";
 			final String REDIRECT_URI = "http://localhost:8080/ridetrends/callback";
 			final String CLIENT_ID = System.getenv("UBER_CLIENT_ID");
 			final String CLIENT_SECRET = System.getenv("UBER_CLIENT_SECRET");
-			//Generate Post Request
-			HttpPost httpPost = new HttpPost(TOKEN_ENDPOINT+
-					"?grant_type="+URLEncoder.encode(GRANT_TYPE,StandardCharsets.UTF_8.name())+
-					"&code="+URLEncoder.encode(authorizationCode,StandardCharsets.UTF_8.name())+
-					"&redirect_uri="+URLEncoder.encode(REDIRECT_URI,StandardCharsets.UTF_8.name())+
-					"&client_id="+URLEncoder.encode(CLIENT_ID,StandardCharsets.UTF_8.name()));
-			
-			//Add Authorization header with encoded client creds
-			String clientCredentials = CLIENT_ID+":"+CLIENT_SECRET;
+			// Generate Post Request
+			HttpPost httpPost = new HttpPost(
+					TOKEN_ENDPOINT + "?grant_type=" + URLEncoder.encode(GRANT_TYPE, StandardCharsets.UTF_8.name())
+							+ "&code=" + URLEncoder.encode(authorizationCode, StandardCharsets.UTF_8.name())
+							+ "&redirect_uri=" + URLEncoder.encode(REDIRECT_URI, StandardCharsets.UTF_8.name())
+							+ "&client_id=" + URLEncoder.encode(CLIENT_ID, StandardCharsets.UTF_8.name()));
+
+			// Add Authorization header with encoded client creds
+			String clientCredentials = CLIENT_ID + ":" + CLIENT_SECRET;
 			String encodedClientCredentials = new String(Base64.encodeBase64(clientCredentials.getBytes()));
-			httpPost.setHeader("Authorization","Basic "+encodedClientCredentials);
-			//Make the access token request
+			httpPost.setHeader("Authorization", "Basic " + encodedClientCredentials);
+			// Make the access token request
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpResponse httpResponse = httpClient.execute(httpPost);
-			//Handle Access token Response
+			// Handle Access token Response
 			Reader reader = new InputStreamReader(httpResponse.getEntity().getContent());
 			BufferedReader bufferedReader = new BufferedReader(reader);
 			String line = bufferedReader.readLine();
-			//Isolate Access token
+			// Isolate Access token
 			ObjectMapper objectMapper = new ObjectMapper();
 			UberAccessTokenBean uberAccessTokenBean = objectMapper.readValue(line, UberAccessTokenBean.class);
 			String accessToken = uberAccessTokenBean.getAccess_token();
 			httpClient.close();
-			UberService uberService = new UberServiceImpl();
+			UberService uberService = new UberServiceImpl(accessToken);
 			UberProfileBean uberProfileBean = uberService.getUberProfile(accessToken);
 			UberStats uberStats = uberService.getUberStats(accessToken);
+			uberService.getMonthlyStats();
 			HttpSession session = request.getSession();
 			session.setAttribute("uberprofile", uberProfileBean);
 			session.setAttribute("uberStats", uberStats);
 			getServletContext().getRequestDispatcher("/WEB-INF/ubertrends.jsp").forward(request, response);
-		}
-		else{
-			
+		} else {
+
 		}
 	}
+
 }

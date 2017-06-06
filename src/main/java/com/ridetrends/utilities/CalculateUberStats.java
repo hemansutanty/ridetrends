@@ -13,6 +13,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ridetrends.bean.UberHistory;
@@ -22,20 +23,30 @@ public class CalculateUberStats {
 	private static final String HISTORY_ENDPOINT = "https://api.uber.com/v1.2/history";
 	private static final String ACCEPT_LANGUAGE = "en_US";
 	private static final String CONTENT_TYPE = "application/json";
-	
-	public static int getMonth(String unixTimeStamp){
-		Long timeStamp = Long.valueOf(unixTimeStamp)*1000;
+
+	public static int getMonth(String unixTimeStamp) {
+		Long timeStamp = Long.valueOf(unixTimeStamp) * 1000;
 		DateTime dt = new DateTime(timeStamp);
 		return dt.getMonthOfYear();
 	}
-	public static List<UberHistory> getRecentMonthTrips(String accessToken, int recentMonth){
+
+	public static Double getTimeDifferenceInHours(String endTime, String startTime) {
+		Long endTimeStamp = Long.valueOf(endTime) * 1000;
+		Long startTimeStamp = Long.valueOf(startTime) * 1000;
+		DateTime endDT = new DateTime(endTimeStamp);
+		DateTime startDT = new DateTime(startTimeStamp);
+		Duration duration = new Duration(startDT, endDT);
+		return Double.valueOf(duration.getStandardHours());
+	}
+
+	public static List<UberHistory> getRecentMonthTrips(String accessToken, int recentMonth) {
 		List<UberHistory> recentMonthTrips = new ArrayList<UberHistory>();
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		//Use Access Token to get the ride history
-		HttpGet getRequest = new HttpGet(HISTORY_ENDPOINT+"?limit=50");
-		getRequest.setHeader("Authorization","Bearer "+accessToken);
-		getRequest.setHeader("Accept-Language",ACCEPT_LANGUAGE);
-		getRequest.setHeader("Content-Type",CONTENT_TYPE);
+		// Use Access Token to get the ride history
+		HttpGet getRequest = new HttpGet(HISTORY_ENDPOINT + "?limit=50");
+		getRequest.setHeader("Authorization", "Bearer " + accessToken);
+		getRequest.setHeader("Accept-Language", ACCEPT_LANGUAGE);
+		getRequest.setHeader("Content-Type", CONTENT_TYPE);
 		HttpResponse httpResponse;
 		try {
 			httpResponse = httpClient.execute(getRequest);
@@ -45,12 +56,11 @@ public class CalculateUberStats {
 			httpClient.close();
 			ObjectMapper objectMapper = new ObjectMapper();
 			UberHistoryBean uberHistoryBean = objectMapper.readValue(line, UberHistoryBean.class);
-			for(UberHistory pastTrip : uberHistoryBean.getHistory()){
+			for (UberHistory pastTrip : uberHistoryBean.getHistory()) {
 				int month = getMonth(pastTrip.getStart_time());
-				if(month==recentMonth){
+				if (month == recentMonth) {
 					recentMonthTrips.add(pastTrip);
-				}
-				else{
+				} else {
 					break;
 				}
 			}
@@ -60,17 +70,18 @@ public class CalculateUberStats {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 		return recentMonthTrips;
 	}
-	public static List<UberHistory> getPreviousMonthTrips(String accessToken, int previousMonth){
+
+	public static List<UberHistory> getPreviousMonthTrips(String accessToken, int previousMonth) {
 		List<UberHistory> previousMonthTrips = new ArrayList<UberHistory>();
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		//Use Access Token to get the ride history
-		HttpGet getRequest = new HttpGet(HISTORY_ENDPOINT+"?limit=50");
-		getRequest.setHeader("Authorization","Bearer "+accessToken);
-		getRequest.setHeader("Accept-Language",ACCEPT_LANGUAGE);
-		getRequest.setHeader("Content-Type",CONTENT_TYPE);
+		// Use Access Token to get the ride history
+		HttpGet getRequest = new HttpGet(HISTORY_ENDPOINT + "?limit=50");
+		getRequest.setHeader("Authorization", "Bearer " + accessToken);
+		getRequest.setHeader("Accept-Language", ACCEPT_LANGUAGE);
+		getRequest.setHeader("Content-Type", CONTENT_TYPE);
 		HttpResponse httpResponse;
 		try {
 			httpResponse = httpClient.execute(getRequest);
@@ -80,11 +91,11 @@ public class CalculateUberStats {
 			httpClient.close();
 			ObjectMapper objectMapper = new ObjectMapper();
 			UberHistoryBean uberHistoryBean = objectMapper.readValue(line, UberHistoryBean.class);
-			for(UberHistory pastTrip : uberHistoryBean.getHistory()){
+			for (UberHistory pastTrip : uberHistoryBean.getHistory()) {
 				int month = getMonth(pastTrip.getStart_time());
-				if(month==previousMonth){
+				if (month == previousMonth) {
 					previousMonthTrips.add(pastTrip);
-				}else if(month<previousMonth){
+				} else if (month < previousMonth) {
 					break;
 				}
 			}
@@ -94,14 +105,61 @@ public class CalculateUberStats {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 		return previousMonthTrips;
 	}
-	public static Double getTotalMilesCovered(List<UberHistory> pastRides){
+
+	public static Double getTotalMilesCovered(List<UberHistory> pastRides) {
 		Double sum = 0.0;
-		for(UberHistory pastRide:pastRides){
-			sum+=Double.parseDouble(pastRide.getDistance());
+		for (UberHistory pastRide : pastRides) {
+			sum += Double.parseDouble(pastRide.getDistance());
 		}
 		return sum;
+	}
+
+	public static int getTotalRides(String accessToken) throws UnsupportedOperationException, IOException {
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		// Use Access Token to get the ride history
+		HttpGet getRequest = new HttpGet(HISTORY_ENDPOINT);
+		getRequest.setHeader("Authorization", "Bearer " + accessToken);
+		getRequest.setHeader("Accept-Language", ACCEPT_LANGUAGE);
+		getRequest.setHeader("Content-Type", CONTENT_TYPE);
+		HttpResponse httpResponse = httpClient.execute(getRequest);
+		Reader reader = new InputStreamReader(httpResponse.getEntity().getContent());
+		BufferedReader bufferedReader = new BufferedReader(reader);
+		String line = bufferedReader.readLine();
+		httpClient.close();
+		ObjectMapper objectMapper = new ObjectMapper();
+		UberHistoryBean uberHistoryBean = objectMapper.readValue(line, UberHistoryBean.class);
+		return Integer.parseInt(uberHistoryBean.getCount());
+	}
+
+	public static List<UberHistory> getUberHistory(String accessToken, int offset) {
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		// Use Access Token to get the ride history
+		HttpGet getRequest = new HttpGet(HISTORY_ENDPOINT + "?limit=50&offset=" + offset);
+		getRequest.setHeader("Authorization", "Bearer " + accessToken);
+		getRequest.setHeader("Accept-Language", ACCEPT_LANGUAGE);
+		getRequest.setHeader("Content-Type", CONTENT_TYPE);
+		HttpResponse httpResponse;
+		UberHistoryBean uberHistoryBean = null;
+
+		try {
+			httpResponse = httpClient.execute(getRequest);
+			Reader reader = new InputStreamReader(httpResponse.getEntity().getContent());
+			BufferedReader bufferedReader = new BufferedReader(reader);
+			String line = bufferedReader.readLine();
+			httpClient.close();
+			ObjectMapper objectMapper = new ObjectMapper();
+			uberHistoryBean = objectMapper.readValue(line, UberHistoryBean.class);
+
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return uberHistoryBean.getHistory();
 	}
 }
