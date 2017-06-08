@@ -12,7 +12,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.joda.time.DateTime;
-import org.joda.time.Duration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ridetrends.bean.UberHistory;
@@ -34,8 +33,8 @@ public class UberUtil {
 		Long startTimeStamp = Long.valueOf(startTime) * 1000;
 		DateTime endDT = new DateTime(endTimeStamp);
 		DateTime startDT = new DateTime(startTimeStamp);
-		Duration duration = new Duration(startDT, endDT);
-		return Double.valueOf(duration.getStandardHours());
+		Long diffInMillis = endDT.getMillis()-startDT.getMillis();
+		return (diffInMillis/(60.0 * 60.0 * 1000.0));
 	}
 
 	public static Double getTotalMilesCovered(List<UberHistory> pastRides) {

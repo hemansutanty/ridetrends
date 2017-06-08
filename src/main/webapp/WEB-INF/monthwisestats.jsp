@@ -106,42 +106,134 @@
 			<h6>
 				<b>Ride Times(Hours)</b>
 			</h6>
-			Jan : ${monthwisestats.monthWiseTotalRideTimes[1]}<br> Feb :
-			${monthwisestats.monthWiseTotalRideTimes[2]}<br> Mar :
-			${monthwisestats.monthWiseTotalRideTimes[3]}<br> Apr :
-			${monthwisestats.monthWiseTotalRideTimes[4]}<br> May :
-			${monthwisestats.monthWiseTotalRideTimes[5]}<br> Jun :
-			${monthwisestats.monthWiseTotalRideTimes[6]}<br> Jul :
-			${monthwisestats.monthWiseTotalRideTimes[7]}<br> Aug :
-			${monthwisestats.monthWiseTotalRideTimes[8]}<br> Sep :
-			${monthwisestats.monthWiseTotalRideTimes[9]}<br> Oct :
-			${monthwisestats.monthWiseTotalRideTimes[10]}<br> Nov :
-			${monthwisestats.monthWiseTotalRideTimes[11]}<br> Dec :
-			${monthwisestats.monthWiseTotalRideTimes[12]}<br>
-
+			Jan : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[1]}"
+				maxFractionDigits="2" />
+			<br>
+			Feb : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[2]}"
+				maxFractionDigits="2" />
+			<br>
+			Mar : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[3]}"
+				maxFractionDigits="2" />
+			<br> 
+			Apr : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[4]}"
+				maxFractionDigits="2" />
+			<br>
+			May : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[5]}"
+				maxFractionDigits="2" />
+			<br>
+			Jun : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[6]}"
+				maxFractionDigits="2" />
+			<br>
+			Jul : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[7]}"
+				maxFractionDigits="2" />
+			<br>
+			Aug : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[8]}"
+				maxFractionDigits="2" />
+			<br>
+			Sep : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[9]}"
+				maxFractionDigits="2" />
+			<br>
+			Oct : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[10]}"
+				maxFractionDigits="2" />
+			<br>
+			Nov : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[11]}"
+				maxFractionDigits="2" />
+			<br>
+			Dec : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[12]}"
+				maxFractionDigits="2" />
 		</div>
 
 		<div class="col s3">
 			<h6>
-				<b>Waiting Times</b>
+				<b>Waiting Times(Hours)</b>
 			</h6>
-			Jan : ${monthwisestats.monthWiseTotalWaitingTimes[1]}<br> Feb :
-			${monthwisestats.monthWiseTotalWaitingTimes[2]}<br> Mar :
-			${monthwisestats.monthWiseTotalWaitingTimes[3]}<br> Apr :
-			${monthwisestats.monthWiseTotalWaitingTimes[4]}<br> May :
-			${monthwisestats.monthWiseTotalWaitingTimes[5]}<br> Jun :
-			${monthwisestats.monthWiseTotalWaitingTimes[6]}<br> Jul :
-			${monthwisestats.monthWiseTotalWaitingTimes[7]}<br> Aug :
-			${monthwisestats.monthWiseTotalWaitingTimes[8]}<br> Sep :
-			${monthwisestats.monthWiseTotalWaitingTimes[9]}<br> Oct :
-			${monthwisestats.monthWiseTotalWaitingTimes[10]}<br> Nov :
-			${monthwisestats.monthWiseTotalWaitingTimes[11]}<br> Dec :
-			${monthwisestats.monthWiseTotalWaitingTimes[12]}<br>
-
+			Jan : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalWaitingTimes[1]}"
+				maxFractionDigits="2" />
+			<br>
+			Feb : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalWaitingTimes[2]}"
+				maxFractionDigits="2" />
+			<br>
+			Mar : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalWaitingTimes[3]}"
+				maxFractionDigits="2" />
+			<br> 
+			Apr : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalWaitingTimes[4]}"
+				maxFractionDigits="2" />
+			<br>
+			May : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalWaitingTimes[5]}"
+				maxFractionDigits="2" />
+			<br>
+			Jun : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalWaitingTimes[6]}"
+				maxFractionDigits="2" />
+			<br>
+			Jul : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalWaitingTimes[7]}"
+				maxFractionDigits="2" />
+			<br>
+			Aug : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalWaitingTimes[8]}"
+				maxFractionDigits="2" />
+			<br>
+			Sep : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalWaitingTimes[9]}"
+				maxFractionDigits="2" />
+			<br>
+			Oct : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalWaitingTimes[10]}"
+				maxFractionDigits="2" />
+			<br>
+			Nov : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalWaitingTimes[11]}"
+				maxFractionDigits="2" />
+			<br>
+			Dec : 
+			<fmt:formatNumber
+				value="${monthwisestats.monthWiseTotalRideTimes[12]}"
+				maxFractionDigits="2" />
 		</div>
 	</div>
 	<div class="row">
-		<div class = "col s3" id="chart"></div>
+		<div class="col s3" id="chart"></div>
 	</div>
 	<script>
 	var dataset = [
