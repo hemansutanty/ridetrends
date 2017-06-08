@@ -7,6 +7,7 @@
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+<link rel="stylesheet" href="css/style.css">
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet"
@@ -40,8 +41,17 @@
 </head>
 
 <body>
-	<a class="waves-effect waves-light btn" id="goButton">Login with
-		Uber&nbsp; <i class="fa fa-car" aria-hidden="true"></i></a>
-	<div id="results"></div>
+
+	<div class="row layer">
+		<div class="col s4 offset-s4 mid-section">
+			<h3>
+				<i class="fa fa-car" aria-hidden="true"></i>&nbsp;Ride Trends
+			</h3>
+			<span class="white-text home-desc">Your Uber Analytics</span> <b><a
+				class="waves-effect waves-light button center-card" id="goButton">Login
+					with Uber </a></b>
+		</div>
+	</div>
+
 </body>
 </html>
